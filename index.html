@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talent.com - Land Your Next Job, Faster</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <!-- AOS (Animate On Scroll) Library for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* Custom styles for the landing page */
+        body {
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+            /* Prevents horizontal scroll and issues from AOS */
+        }
+
+        .hero-bg {
+            background-color: #f9fafb;
+            /* Light gray for hero section */
+        }
+
+        .hero-image-container {
+            perspective: 1000px;
+        }
+
+        .hero-image {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Keyframe animation for the infinite logo scroll */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-scroll {
+            animation: scroll 40s linear infinite;
+        }
+
+        .hover\:pause-animation:hover {
+            animation-play-state: paused;
+        }
+
+        /* Ensure elements are hidden before AOS animates them */
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+        }
+
+        /* --- New styles for animated hero illustrations --- */
+        @keyframes float-diag {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-10px, -10px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes float-diag-alt {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(10px, -10px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes float-up-down {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .animated-illustration-card {
+            animation: float-diag 8s ease-in-out infinite;
+        }
+
+        .animated-illustration-stat {
+            animation: float-diag 10s ease-in-out infinite reverse;
+        }
+
+        .animated-illustration-icon {
+            animation: float-up-down 6s ease-in-out infinite;
+        }
+
+        .animated-illustration-resume-score {
+            animation: float-up-down 7s ease-in-out infinite reverse;
+        }
+
+        .animated-illustration-message {
+            animation: float-diag-alt 9s ease-in-out infinite;
+        }
+
+
+        /* --- New styles for newsletter section avatars --- */
+        @keyframes zoom-in-out {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+                /* Increased zoom effect */
+            }
+        }
+
+        .animate-zoom {
+            animation: zoom-in-out 5s ease-in-out infinite;
+            /* Faster animation */
+        }
+
+        .profile-avatar {
+            position: absolute;
+            /* Hide on smaller screens to prevent overlap */
+            display: none;
+            flex-direction: column;
+            /* Use flexbox for alignment */
+            align-items: center;
+            /* Center items horizontally */
+        }
+
+        /* Show avatars on large screens (lg breakpoint and up) */
+        @media (min-width: 1024px) {
+            .profile-avatar {
+                display: flex;
+                /* Change to flex for alignment */
+            }
+        }
+
+        .profile-avatar img {
+            border-radius: 9999px;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-avatar span {
+            margin-top: -16px;
+            /* Pulls the tag up to stick to the image */
+            position: relative;
+            /* Needed for z-index to work */
+            z-index: 10;
+            /* Ensures tag is on top of the image */
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            /* gray-800 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- =========== Static Demo Banner =========== -->
+    <div id="soc-banner"
+        class="bg-gradient-to-r from-[#461A53] to-[#E34B31] text-white py-3 px-6 text-center text-sm font-semibold">
+        <p>
+            <strong>Healthcare</strong> jobs are in high demand!
+            <a href="#plans" class="underline hover:text-gray-200 ml-2">Get a Weekly Pass for a competitive edge
+                &rarr;</a>
+        </p>
+    </div>
+
+    <!-- =========== Header / Navbar =========== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold text-gray-800" id="logo">
+                    <!-- SVG Logo -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 107 20" role="img" width="111px" height="20px">
+                        <title>Talent.com</title>
+                        <path fill="#461A53"
+                            d="M37.62 19.666h-4.322V0h4.322zM44.182 13.443c.248 1.806 1.79 2.915 3.632 2.915 1.293 0 2.615-.692 3.272-1.776l3.106 2.056c-1.24 2.248-3.33 3.362-6.33 3.362-2.285 0-4.18-.721-5.751-2.164-1.541-1.473-2.31-3.333-2.31-5.61 0-2.14.769-3.946 2.286-5.473 1.54-1.526 3.383-2.277 5.503-2.277 2.173 0 3.933.697 5.285 2.057 1.351 1.359 2.037 3.165 2.037 5.359 0 .692-.03 1.222-.054 1.556H44.182zm6.442-2.861C50.512 9.276 49.442 8 47.488 8c-.88 0-1.624.28-2.202.859-.579.555-.91 1.139-.992 1.723zM66.595 19.666v-8.22c0-1.748-.88-2.891-2.557-2.891-1.735 0-2.64 1.251-2.64 2.89v8.221h-4.293V4.61h4.264v2.169h.03a3.87 3.87 0 0 1 1.458-1.443c1.293-.75 2.061-.78 2.698-.78 1.76 0 3.082.554 3.962 1.693.91 1.139 1.347 2.528 1.347 4.196v9.222zM31.115 4.609v15.058h-4.322v-.796c-.958.496-2.018.795-3.14.795-4.119 0-7.459-3.372-7.459-7.529s3.34-7.528 7.458-7.528c1.123 0 2.188.299 3.14.795v-.795zm-7.196 11.145c1.934 0 3.5-1.625 3.5-3.631s-1.566-3.632-3.5-3.632-3.5 1.626-3.5 3.632 1.567 3.632 3.5 3.632M80.97 8.972V4.609H77.34V0h-4.293v14.081c0 3.47 2.008 5.585 5.834 5.585.715 0 1.376-.083 2.008-.28v-3.474h-.768q-.108.006-.224.004c-1.677 0-2.557-.667-2.557-2.36V8.972zM14.352 8.972V4.609h-3.55V0H6.51v14.081c0 3.47 2.008 5.585 5.834 5.585.714 0 1.376-.083 2.008-.28v-3.474h-.768q-.108.006-.224.004c-1.677 0-2.557-.667-2.557-2.36V8.972z">
+                        </path>
+                        <path fill="#E34B31"
+                            d="M.486 8.972V4.609h4.322v4.358H.486zM83.471 8.448a2.24 2.24 0 0 1-.677-1.615c0-1.279 1.013-2.318 2.285-2.318s2.285 1.045 2.285 2.318c0 .618-.233 1.168-.677 1.615s-.972.68-1.608.68c-.61 0-1.163-.233-1.608-.68">
+                        </path>
+                        <path fill="#461A53"
+                            d="M84.077 18.832c-.608-.614-.919-1.38-.919-2.292 0-.869.311-1.62.92-2.258.607-.638 1.365-.947 2.27-.947 1.375 0 2.386.75 2.751 1.85l-1.172.53c-.262-.75-.792-1.133-1.57-1.133a1.74 1.74 0 0 0-1.283.544q-.518.537-.516 1.39-.002.87.516 1.423c.345.373.778.554 1.298.554q1.15 0 1.58-1.148l1.19.535c-.17.495-.505.937-.971 1.31q-.708.553-1.824.555c-.909 0-1.662-.3-2.27-.913M95.507 14.248c.632.613.939 1.364.939 2.267q0 1.368-.939 2.302c-.617.613-1.376.928-2.28.928a3.19 3.19 0 0 1-2.295-.928c-.632-.614-.938-1.38-.938-2.282s.321-1.669.953-2.282a3.19 3.19 0 0 1 2.295-.928c.88.01 1.633.31 2.265.923m-4.118 2.267c0 .545.17 1.006.516 1.399.345.383.792.579 1.332.579s.987-.186 1.317-.57c.331-.382.506-.843.506-1.388q.001-.816-.515-1.39c-.33-.382-.778-.569-1.318-.569s-.987.187-1.332.57c-.33.378-.506.83-.506 1.37M101.618 19.642v-3.475c0-.928-.413-1.541-1.317-1.541-.827 0-1.342.638-1.342 1.575v3.436h-1.366v-6.18h1.332v.835q.722-.972 1.823-.972c.885 0 1.512.334 1.891 1.02.632-.696 1.225-1.02 2.134-1.02 1.478 0 2.227 1.02 2.227 2.498v3.819h-1.366v-3.485c0-.938-.399-1.526-1.308-1.526-.836 0-1.351.623-1.351 1.56v3.45h-1.357z">
+                        </path>
+                    </svg>
+                </a>
+
+                <nav id="main-nav" class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-[#461A53] font-medium">Premium Features</a>
+                    <a href="#plans" class="text-gray-700 hover:text-[#461A53] font-medium">Pricing</a>
+                    <a href="#about" class="text-gray-700 hover:text-[#461A53] font-medium">About Us</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                        <i data-feather="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+                <nav class="flex flex-col items-center space-y-4 py-4">
+                    <a href="#features" class="text-gray-700 hover:text-[#461A53] font-medium">Premium Features</a>
+                    <a href="#plans" class="text-gray-700 hover:text-[#461A53] font-medium">Pricing</a>
+                    <a href="#about" class="text-gray-700 hover:text-[#461A53] font-medium">About Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-container">
+        <!-- This div will contain the content that gets swapped out -->
+        <div id="landing-page">
+            <main>
+                <!-- =========== Hero Section =========== -->
+                <section class="relative hero-bg overflow-hidden pt-24">
+                    <div class="relative z-10 container mx-auto px-6 lg:px-16 pt-20 pb-16 md:pt-32 md:pb-24">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div class="text-center lg:text-left">
+                                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6"
+                                    data-aos="fade-right">
+                                    Land Your Next Job, Faster.
+                                </h1>
+                                <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0" data-aos="fade-right"
+                                    data-aos-delay="200">
+                                    Get ahead of the competition with AI-powered tools, early
+                                    access to jobs, and a standout resume.
+                                </p>
+
+                                <div class="mt-10 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                                    <a href="#plans"
+                                        class="inline-block bg-[#E34B31] hover:bg-opacity-90 transition-all duration-300 text-white font-semibold px-8 py-4 rounded-full text-lg">
+                                        Explore Premium Plans
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="relative hidden lg:block hero-image-container" id="hero-image-container"
+                                data-aos="fade-left" data-aos-delay="300">
+                                <div class="relative z-10">
+                                    <img src="https://html.themeholy.com/sassa/demo/assets/img/hero/hero_5_1.png"
+                                        alt="Woman pointing" class="w-full h-auto max-w-lg mx-auto hero-image"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/600x600/EFEFEF/333?text=Image+Not+Found';" />
+                                </div>
+                                <div class="absolute bottom-0 right-0 -mb-12 -mr-12 z-0">
+                                    <div class="w-64 h-64 bg-[#461A53]/10 rounded-3xl transform -rotate-12"></div>
+                                </div>
+
+                                <!-- Animated UI Illustrations -->
+                                <!-- Illustration 1: Job Match Card -->
+                                <div data-aos="fade-up" data-aos-delay="500"
+                                    class="animated-illustration-card absolute top-1/4 -left-20 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg w-56">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="https://cdn-static.talent.com/img/enterprise/logos/uber.png"
+                                            alt="Uber Logo" class="h-10 w-10 object-contain rounded-md">
+                                        <div>
+                                            <p class="font-bold text-gray-800 text-sm">Sr. Product Manager</p>
+                                            <p class="text-xs text-gray-500">Uber</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <p class="text-xs font-semibold text-green-600">92% Match</p>
+                                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                            <div class="bg-green-500 h-1.5 rounded-full" style="width: 92%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Illustration 2: Profile Views -->
+                                <div data-aos="fade-up" data-aos-delay="700"
+                                    class="animated-illustration-stat absolute top-1/3 -right-20 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg flex items-center space-x-3">
+                                    <div class="bg-blue-100 p-2 rounded-full">
+                                        <i data-feather="eye" class="w-5 h-5 text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xl font-bold text-gray-800">1,200+</p>
+                                        <p class="text-xs text-gray-500">Profile Views</p>
+                                    </div>
+                                </div>
+
+                                <!-- Illustration 3: Floating Icon -->
+                                <div data-aos="zoom-in" data-aos-delay="900"
+                                    class="animated-illustration-icon absolute top-20 -right-5 bg-white p-3 rounded-full shadow-lg">
+                                    <i data-feather="briefcase" class="w-6 h-6 text-[#E34B31]"></i>
+                                </div>
+
+                                <!-- Illustration 4: Resume Score -->
+                                <div data-aos="fade-up" data-aos-delay="600"
+                                    class="animated-illustration-resume-score absolute bottom-10 -left-16 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg flex items-center space-x-3">
+                                    <div class="bg-purple-100 p-2 rounded-full">
+                                        <i data-feather="check-circle" class="w-5 h-5 text-purple-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-800">Resume Score</p>
+                                        <p class="text-xs font-semibold text-purple-600">88/100 (Great)</p>
+                                    </div>
+                                </div>
+
+                                <!-- Illustration 5: New Message -->
+                                <div data-aos="fade-up" data-aos-delay="800"
+                                    class="animated-illustration-message absolute bottom-1/4 -right-28 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg w-60">
+                                    <div class="flex items-start space-x-3">
+                                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=80&h=80&auto=format&fit=crop"
+                                            alt="Recruiter" class="h-10 w-10 rounded-full object-cover"
+                                            onerror="this.onerror=null;this.src='https://placehold.co/40x40/EFEFEF/333?text=R';">
+                                        <div>
+                                            <p class="font-bold text-gray-800 text-sm">New Message</p>
+                                            <p class="text-xs text-gray-600 mt-1">We'd like to schedule an interview for
+                                                the Product Designer role...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========== Logo Carousel Section =========== -->
+                <section class="py-16 sm:py-24 bg-white">
+                    <div class="container mx-auto px-6 lg:px-16">
+                        <h2 class="text-2xl font-bold text-center text-gray-800 mb-12">
+                            Trusted by millions.
+                        </h2>
+                        <div class="relative w-full overflow-hidden">
+                            <div class="flex animate-scroll hover:pause-animation">
+                                <!-- Logos repeated for seamless scroll effect -->
+                                <div class="flex-shrink-0 flex items-center">
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/cgi.png" alt="CGI"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/deliveroo.png"
+                                        alt="Deliveroo" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/desjardins.png"
+                                        alt="Desjardins" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/homedepot.png"
+                                        alt="Homedepot" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/uber.png" alt="Uber"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/ups.png" alt="UPS"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/adecco.png"
+                                        alt="Adecco" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/gigroup.png"
+                                        alt="Gi Group" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/appcast.png"
+                                        alt="Appcast" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/armyuk.png"
+                                        alt="Army UK" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/bathfitter.png"
+                                        alt="BATH FITTER" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/dpd.png" alt="DPD"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/genrali.png"
+                                        alt="Generali" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/hermes.png"
+                                        alt="Hermes" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/intact.png"
+                                        alt="Intact" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/justeat.png"
+                                        alt="JUST EAT" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/lidl.png" alt="LIDL"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/loblaws.png"
+                                        alt="Loblaws" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/marriott.png"
+                                        alt="Marriott" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/olymel.png"
+                                        alt="OLYMEL" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/reed.png" alt="Reed"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/recruitics.png"
+                                        alt="Recruitics" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/rona.png" alt="RONA"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/selection.png"
+                                        alt="Sélection Retraite" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/talentnexus.png"
+                                        alt="Talent Nexus" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/talentworld.png"
+                                        alt="TALENTWORLD" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/timhortons.png"
+                                        alt="Tim Hortons" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/tesco.png" alt="TESCO"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/totaljobs.png"
+                                        alt="TotalJobs" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/ttec.png" alt="Ttec"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/vlibrary.png"
+                                        alt="CVLibrary" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/ats-page/shakermarketing.png"
+                                        alt="Shaker" class="h-20 object-contain mx-8" />
+                                </div>
+                                <div class="flex-shrink-0 flex items-center" aria-hidden="true">
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/cgi.png" alt="CGI"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/deliveroo.png"
+                                        alt="Deliveroo" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/desjardins.png"
+                                        alt="Desjardins" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/homedepot.png"
+                                        alt="Homedepot" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/uber.png" alt="Uber"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/ups.png" alt="UPS"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/adecco.png"
+                                        alt="Adecco" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/gigroup.png"
+                                        alt="Gi Group" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/appcast.png"
+                                        alt="Appcast" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/armyuk.png"
+                                        alt="Army UK" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/bathfitter.png"
+                                        alt="BATH FITTER" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/dpd.png" alt="DPD"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/genrali.png"
+                                        alt="Generali" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/hermes.png"
+                                        alt="Hermes" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/intact.png"
+                                        alt="Intact" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/justeat.png"
+                                        alt="JUST EAT" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/lidl.png" alt="LIDL"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/loblaws.png"
+                                        alt="Loblaws" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/marriott.png"
+                                        alt="Marriott" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/olymel.png"
+                                        alt="OLYMEL" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/reed.png" alt="Reed"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/recruitics.png"
+                                        alt="Recruitics" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/rona.png" alt="RONA"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/selection.png"
+                                        alt="Sélection Retraite" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/talentnexus.png"
+                                        alt="Talent Nexus" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/talentworld.png"
+                                        alt="TALENTWORLD" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/timhortons.png"
+                                        alt="Tim Hortons" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/tesco.png" alt="TESCO"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/totaljobs.png"
+                                        alt="TotalJobs" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/ttec.png" alt="Ttec"
+                                        class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/enterprise/logos/vlibrary.png"
+                                        alt="CVLibrary" class="h-20 object-contain mx-8" />
+                                    <img src="https://cdn-static.talent.com/img/ats-page/shakermarketing.png"
+                                        alt="Shaker" class="h-20 object-contain mx-8" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========== Premium Features Section =========== -->
+                <section id="features" class="py-16 sm:py-24 bg-slate-50">
+                    <div class="container mx-auto px-6 lg:px-16">
+                        <div class="text-center mb-16" data-aos="fade-up">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+                                Gain a Competitive Edge
+                            </h2>
+                            <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+                                Our premium tools are designed to help you stand out and get
+                                hired faster.
+                            </p>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-8 text-center">
+                            <!-- Feature 1: AI Job Fit Ranking -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                                data-aos="fade-up">
+                                <div
+                                    class="flex items-center justify-center h-20 w-20 bg-[#461A53]/10 rounded-full mx-auto mb-6">
+                                    <i data-feather="bar-chart-2" class="w-10 h-10 text-[#461A53]"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                                    AI Job Fit Ranking
+                                </h3>
+                                <p class="text-gray-600">
+                                    Our AI analyzes your skills to show you the jobs you're most
+                                    likely to land, saving you time and effort.
+                                </p>
+                            </div>
+                            <!-- Feature 2: Early Access to Jobs -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                                data-aos="fade-up" data-aos-delay="100">
+                                <div
+                                    class="flex items-center justify-center h-20 w-20 bg-[#461A53]/10 rounded-full mx-auto mb-6">
+                                    <i data-feather="clock" class="w-10 h-10 text-[#461A53]"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                                    Early Access to Jobs
+                                </h3>
+                                <p class="text-gray-600">
+                                    See new job postings 48 hours before everyone else and be
+                                    one of the first to apply.
+                                </p>
+                            </div>
+                            <!-- Feature 3: Resume & Cover Letter Tools -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                                data-aos="fade-up" data-aos-delay="200">
+                                <div
+                                    class="flex items-center justify-center h-20 w-20 bg-[#461A53]/10 rounded-full mx-auto mb-6">
+                                    <i data-feather="file-text" class="w-10 h-10 text-[#461A53]"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">
+                                    Resume & Cover Letter Tools
+                                </h3>
+                                <p class="text-gray-600">
+                                    Build a professional resume and cover letter that beats
+                                    applicant tracking systems.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========== About Our Company Section with Animated Counters =========== -->
+                <section id="about" class="py-16 sm:py-24 bg-white">
+                    <div class="container mx-auto px-6 lg:px-16">
+                        <div class="grid lg:grid-cols-2 gap-16 items-center">
+                            <div class="relative flex justify-center items-center" data-aos="fade-right">
+                                <div class="relative w-[450px] h-[450px] rounded-full overflow-hidden shadow-lg">
+                                    <img src="https://html.themeholy.com/sassa/demo/assets/img/normal/about_1_5.png"
+                                        alt="Man with laptop" class="absolute inset-0 w-full h-full object-cover z-10"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/450x450/EFEFEF/333?text=Image+Not+Found';" />
+                                </div>
+                            </div>
+                            <div class="text-center lg:text-left" data-aos="fade-left" data-aos-delay="200">
+                                <span
+                                    class="inline-block px-4 py-1.5 bg-[#461A53]/10 text-[#461A53] text-sm font-semibold rounded-full mb-4">
+                                    About Our Company
+                                </span>
+                                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-6">
+                                    Connecting The World To Work
+                                </h2>
+                                <p class="text-gray-600 mb-8">
+                                    As one of the world's largest job search platforms,
+                                    Talent.com centralizes millions of jobs to connect
+                                    candidates with top opportunities. We streamline the job
+                                    search and help employers find the right talent globally.
+                                </p>
+                                <!-- Animated Counters -->
+                                <div id="counters" class="grid grid-cols-2 md:grid-cols-4 gap-4 my-10 text-center">
+                                    <div>
+                                        <h4 class="text-4xl font-extrabold text-[#461A53] counter" data-target="35">
+                                            0
+                                        </h4>
+                                        <p class="text-gray-600">Million+ Jobs</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-4xl font-extrabold text-[#461A53] counter" data-target="60">
+                                            0
+                                        </h4>
+                                        <p class="text-gray-600">Million+ Sessions</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-4xl font-extrabold text-[#461A53] counter" data-target="28">
+                                            0
+                                        </h4>
+                                        <p class="text-gray-600">Million+ Visitors</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-4xl font-extrabold text-[#461A53] counter" data-target="77">
+                                            0
+                                        </h4>
+                                        <p class="text-gray-600">Countries</p>
+                                    </div>
+                                </div>
+                                <a href="#"
+                                    class="inline-block px-8 py-4 text-base font-semibold text-white bg-[#E34B31] rounded-lg shadow-md hover:bg-opacity-90 transition-colors">
+                                    Discover More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========== Pricing Table Section =========== -->
+                <section id="plans" class="py-16 sm:py-24 bg-slate-50">
+                    <div class="container mx-auto px-6 md:px-12">
+                        <div class="text-center mb-12" data-aos="fade-up">
+                            <h2 class="text-4xl font-extrabold text-gray-900">
+                                Choose Your Path to Success
+                            </h2>
+                            <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">
+                                Select the plan that best fits your job search intensity and career goals.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <!-- Free Plan -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-200 text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2"
+                                data-aos="fade-up">
+                                <div>
+                                    <h3 class="text-3xl font-bold mb-2 text-gray-800">Free</h3>
+                                    <p class="text-gray-500 mb-6">For casual browsing.</p>
+                                    <div class="text-5xl font-extrabold text-gray-900 mb-6">
+                                        $0<span class="text-xl text-gray-500">/month</span>
+                                    </div>
+                                    <ul class="text-left text-gray-600 space-y-3 mb-8">
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Basic job
+                                            search
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Standard job
+                                            alerts
+                                        </li>
+                                        <li class="flex items-center text-gray-400">
+                                            <i data-feather="x-circle" class="mr-2"></i>Resume & Cover Letter Tools
+                                        </li>
+                                        <li class="flex items-center text-gray-400">
+                                            <i data-feather="x-circle" class="mr-2"></i>AI Job Fit Ranking
+                                        </li>
+                                        <li class="flex items-center text-gray-400">
+                                            <i data-feather="x-circle" class="mr-2"></i>Early Access to Jobs
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button
+                                    class="purchase-btn block w-full bg-gray-200 text-gray-800 hover:bg-gray-300 font-bold py-3 px-6 rounded-full transition duration-300 mt-6"
+                                    data-plan="Free" data-price="0">
+                                    Get Started
+                                </button>
+                            </div>
+
+                            <!-- Starter Plan (Not highlighted) -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-200 text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2"
+                                data-aos="fade-up" data-aos-delay="100">
+                                <div>
+                                    <h3 class="text-3xl font-bold mb-2 text-[#461A53]">Starter</h3>
+                                    <p class="text-gray-500 mb-6">Perfect for the Active Seeker.</p>
+                                    <div class="text-5xl font-extrabold text-gray-900 mb-6">
+                                        $14.99<span class="text-xl text-gray-500">/month</span>
+                                    </div>
+                                    <ul class="text-left text-gray-600 space-y-3 mb-8">
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>All Free
+                                            features, plus:
+                                        </li>
+                                        <li class="flex items-center font-semibold text-[#461A53]">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Resume &
+                                            Cover Letter Tools
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Enhanced job
+                                            alerts
+                                        </li>
+                                        <li class="flex items-center text-gray-400">
+                                            <i data-feather="x-circle" class="mr-2"></i>AI Job Fit Ranking
+                                        </li>
+                                        <li class="flex items-center text-gray-400">
+                                            <i data-feather="x-circle" class="mr-2"></i>Early Access to Jobs
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button
+                                    class="purchase-btn block w-full bg-[#461A53] text-white hover:bg-opacity-90 font-bold py-3 px-6 rounded-full shadow-md transition duration-300 mt-6"
+                                    data-plan="Starter" data-price="19">
+                                    Choose Starter
+                                </button>
+                            </div>
+
+                            <!-- Pro Plan (Now highlighted) -->
+                            <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-[#E34B31] text-center flex flex-col justify-between transform lg:scale-105 relative transition-transform duration-300 hover:-translate-y-2"
+                                data-aos="fade-up" data-aos-delay="200">
+                                <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                                    <span
+                                        class="bg-[#E34B31] text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Most
+                                        Popular</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-bold mb-2 text-[#E34B31]">Pro</h3>
+                                    <p class="text-gray-500 mb-6">For Urgent Seekers & Switchers.</p>
+                                    <div class="text-5xl font-extrabold text-gray-900 mb-6">
+                                        $24.99<span class="text-xl text-gray-500">/month</span>
+                                    </div>
+                                    <ul class="text-left text-gray-600 space-y-3 mb-8">
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>All Starter
+                                            features, plus:
+                                        </li>
+                                        <li class="flex items-center font-semibold text-[#E34B31]">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>AI Job Fit
+                                            Ranking
+                                        </li>
+                                        <li class="flex items-center font-semibold text-[#E34B31]">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Early Access
+                                            to Jobs
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i data-feather="check-circle" class="text-green-500 mr-2"></i>Priority
+                                            application tracking
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button
+                                    class="purchase-btn block w-full bg-[#E34B31] text-white hover:bg-opacity-90 font-bold py-3 px-6 rounded-full shadow-md transition duration-300 mt-6"
+                                    data-plan="Pro" data-price="49">
+                                    Go Pro
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Flexible Options -->
+                        <div class="mt-16 text-center" data-aos="fade-up">
+                            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl border-2 border-dashed">
+                                <h3 class="text-2xl font-bold text-gray-800">
+                                    Not ready for a monthly subscription?
+                                </h3>
+                                <p class="text-gray-600 mt-2 mb-6">
+                                    Get a short-term boost with our flexible options.
+                                </p>
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <button
+                                        class="purchase-btn bg-white text-[#461A53] border border-[#461A53] font-bold py-3 px-6 rounded-full transition duration-300 hover:bg-[#461A53] hover:text-white"
+                                        data-plan="Weekly Pass" data-price="9.99">
+                                        Get a Weekly Pass - $7.99
+                                    </button>
+                                    <button
+                                        class="purchase-btn bg-white text-[#461A53] border border-[#461A53] font-bold py-3 px-6 rounded-full transition duration-300 hover:bg-[#461A53] hover:text-white"
+                                        data-plan="Resume Scan" data-price="4.99">
+                                        One-Time Resume Scan - $4.99
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Industries Served Section -->
+                <!-- Industries Served Section -->
+                <section id="industries" class="py-16 sm:py-24 bg-gray-50">
+                    <div class="container mx-auto px-6 lg:px-16">
+                        <div class="text-center mb-12" data-aos="fade-up">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-black">
+                                Industries Served
+                            </h2>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8" data-aos="fade-up">
+                            <!-- Card 1: Healthcare -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="heart" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Healthcare
+                                </h3>
+                                <p class="text-gray-600">~350,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 2: Information Technology -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="cpu" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Information Technology
+                                </h3>
+                                <p class="text-gray-600">~280,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 3: Construction -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="tool" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Construction
+                                </h3>
+                                <p class="text-gray-600">~190,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 4: Sales & Retail -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="shopping-cart" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Sales & Retail
+                                </h3>
+                                <p class="text-gray-600">~420,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 5: Office & Admin -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="file-text" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Office & Admin
+                                </h3>
+                                <p class="text-gray-600">~310,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 6: Transportation -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="truck" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Transportation
+                                </h3>
+                                <p class="text-gray-600">~230,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 7: Food & Hospitality -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="coffee" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Food & Hospitality
+                                </h3>
+                                <p class="text-gray-600">~270,000 Jobs</p>
+                            </div>
+
+                            <!-- Card 8: Manufacturing -->
+                            <div
+                                class="group bg-white p-6 rounded-xl border border-gray-200 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                                <i data-feather="settings" class="w-10 h-10 mx-auto text-[#691F74] mb-4"></i>
+                                <h3 class="text-xl font-semibold text-[#2B2B3B] mb-2">
+                                    Manufacturing
+                                </h3>
+                                <p class="text-gray-600">~150,000 Jobs</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mt-12" data-aos="fade-up">
+                            <a href="#"
+                                class="bg-green-500 text-white font-bold py-3 px-8 rounded-full transition duration-300 hover:bg-green-600">
+                                View All Categories
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========== Newsletter Section (UPDATED) =========== -->
+                <section class="relative bg-gradient-to-r from-[#461A53] to-[#2B2B3B] overflow-hidden py-24 sm:py-32">
+                    <!-- Floating Profile Pictures -->
+                    <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+                        <div class="profile-avatar animate-zoom" style="top: 15%; left: 10%; animation-delay: 0s;">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile of a writer" class="w-20 h-20 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/fde68a/1f2937?text=W';">
+                            <span style="background-color: #fde68a;">Writer</span>
+                        </div>
+                        <div class="profile-avatar animate-zoom" style="top: 60%; left: 5%; animation-delay: 2s;">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile of an assistant" class="w-16 h-16 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/64x64/a7f3d0/1f2937?text=A';">
+                            <span style="background-color: #a7f3d0;">Assistant</span>
+                        </div>
+                        <div class="profile-avatar animate-zoom" style="bottom: 10%; left: 20%; animation-delay: 4s;">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile of a painter" class="w-24 h-24 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/96x96/bfdbfe/1f2937?text=P';">
+                            <span style="background-color: #bfdbfe;">Painter</span>
+                        </div>
+                        <div class="profile-avatar animate-zoom" style="top: 20%; right: 8%; animation-delay: 1s;">
+                            <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile in finance" class="w-20 h-20 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/fbcfe8/1f2937?text=F';">
+                            <span style="background-color: #fbcfe8;">Finance</span>
+                        </div>
+                        <div class="profile-avatar animate-zoom" style="top: 55%; right: 15%; animation-delay: 3s;">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile of a cleaner" class="w-16 h-16 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/64x64/fed7aa/1f2937?text=C';">
+                            <span style="background-color: #fed7aa;">Nurse</span>
+                        </div>
+                        <div class="profile-avatar animate-zoom" style="bottom: 15%; right: 5%; animation-delay: 5s;">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&h=100&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Profile of a nurse" class="w-20 h-20 object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/fecaca/1f2937?text=N';">
+                            <span style="background-color: #fecaca;">Software Engineer</span>
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto px-6 lg:px-16">
+                        <div class="relative z-10 flex flex-col items-center text-center" data-aos="zoom-in">
+                            <h2 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                                Never Miss an Opportunity
+                            </h2>
+                            <p class="text-lg text-gray-300 mb-8 max-w-2xl">
+                                Subscribe to get weekly job alerts, career tips, and industry
+                                insights delivered to your inbox.
+                            </p>
+                            <form
+                                class="mt-10 max-w-xl w-full mx-auto flex flex-col sm:flex-row gap-4 p-2 bg-white/10 rounded-full">
+                                <input type="email" placeholder="Enter your email address" required
+                                    class="w-full bg-transparent text-white placeholder-white/60 px-6 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-[#E34B31] sm:text-left text-center" />
+                                <button type="submit"
+                                    class="bg-[#E34B31] hover:bg-opacity-90 transition-all duration-300 text-white font-semibold px-8 py-3 rounded-full flex-shrink-0">
+                                    Subscribe Now
+                                </button>
+                            </form>
+                            <p class="text-xs text-gray-400 mt-4">
+                                We respect your privacy. Unsubscribe at any time.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- =========== Footer =========== -->
+            <footer class="bg-white border-t border-gray-200">
+                <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                        <div class="col-span-1">
+                            <h4 class="font-semibold text-gray-900">For job seekers</h4>
+                            <ul class="mt-4 space-y-2 text-sm">
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Search jobs</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Search salary</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Tax calculator</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Salary converter</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h4 class="font-semibold text-gray-900">For employers</h4>
+                            <ul class="mt-4 space-y-2 text-sm">
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Enterprise</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">ATS</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Publisher programs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h4 class="font-semibold text-gray-900">Browse jobs</h4>
+                            <ul class="mt-4 space-y-2 text-sm">
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Top Searches</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">By location</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-span-1">
+                            <h4 class="font-semibold text-gray-900">Talent.com</h4>
+                            <ul class="mt-4 space-y-2 text-sm">
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">More countries</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Terms of Service</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Privacy Policy</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Cookie Policy</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Cookie settings</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Personal Data Request</a></li>
+                                <li><a href="#" class="text-gray-600 hover:text-gray-900">Help Center</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex flex-col items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 30" role="img" width="44px"
+                                height="60px">
+                                <path fill="#691F74"
+                                    d="M21.349 13.686V7.03h-5.465V0h-6.61v21.479c0 5.294 3.092 8.521 8.983 8.521 1.1 0 2.119-.127 3.092-.427v-5.3h-1.183c-.112.007-.224.007-.344.007-2.583 0-3.938-1.018-3.938-3.601v-6.993z">
+                                </path>
+                                <path fill="#FE3B1F" d="M0 13.686V7.03h6.655v6.648H0z"></path>
+                            </svg>
+                            <p class="text-sm text-gray-500 mt-4">© 2025 Talent.com</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- =========== Checkout Page (Hidden by default) =========== -->
+        <div id="checkout-page" class="hidden bg-white min-h-screen">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-5xl mx-auto py-12 lg:py-24">
+                    <header class="text-center mb-12">
+                        <a href="#" id="checkout-logo">
+                            <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 107 20" role="img"
+                                width="111px" height="20px">
+                                <title>Talent.com</title>
+                                <path fill="#461A53"
+                                    d="M37.62 19.666h-4.322V0h4.322zM44.182 13.443c.248 1.806 1.79 2.915 3.632 2.915 1.293 0 2.615-.692 3.272-1.776l3.106 2.056c-1.24 2.248-3.33 3.362-6.33 3.362-2.285 0-4.18-.721-5.751-2.164-1.541-1.473-2.31-3.333-2.31-5.61 0-2.14.769-3.946 2.286-5.473 1.54-1.526 3.383-2.277 5.503-2.277 2.173 0 3.933.697 5.285 2.057 1.351 1.359 2.037 3.165 2.037 5.359 0 .692-.03 1.222-.054 1.556H44.182zm6.442-2.861C50.512 9.276 49.442 8 47.488 8c-.88 0-1.624.28-2.202.859-.579.555-.91 1.139-.992 1.723zM66.595 19.666v-8.22c0-1.748-.88-2.891-2.557-2.891-1.735 0-2.64 1.251-2.64 2.89v8.221h-4.293V4.61h4.264v2.169h.03a3.87 3.87 0 0 1 1.458-1.443c1.293-.75 2.061-.78 2.698-.78 1.76 0 3.082.554 3.962 1.693.91 1.139 1.347 2.528 1.347 4.196v9.222zM31.115 4.609v15.058h-4.322v-.796c-.958.496-2.018.795-3.14.795-4.119 0-7.459-3.372-7.459-7.529s3.34-7.528 7.458-7.528c1.123 0 2.188.299 3.14.795v-.795zm-7.196 11.145c1.934 0 3.5-1.625 3.5-3.631s-1.566-3.632-3.5-3.632-3.5 1.626-3.5 3.632 1.567 3.632 3.5 3.632M80.97 8.972V4.609H77.34V0h-4.293v14.081c0 3.47 2.008 5.585 5.834 5.585.715 0 1.376-.083 2.008-.28v-3.474h-.768q-.108.006-.224.004c-1.677 0-2.557-.667-2.557-2.36V8.972zM14.352 8.972V4.609h-3.55V0H6.51v14.081c0 3.47 2.008 5.585 5.834 5.585.714 0 1.376-.083 2.008-.28v-3.474h-.768q-.108.006-.224.004c-1.677 0-2.557-.667-2.557-2.36V8.972z">
+                                </path>
+                                <path fill="#E34B31"
+                                    d="M.486 8.972V4.609h4.322v4.358H.486zM83.471 8.448a2.24 2.24 0 0 1-.677-1.615c0-1.279 1.013-2.318 2.285-2.318s2.285 1.045 2.285 2.318c0 .618-.233 1.168-.677 1.615s-.972.68-1.608.68c-.61 0-1.163-.233-1.608-.68">
+                                </path>
+                                <path fill="#461A53"
+                                    d="M84.077 18.832c-.608-.614-.919-1.38-.919-2.292 0-.869.311-1.62.92-2.258.607-.638 1.365-.947 2.27-.947 1.375 0 2.386.75 2.751 1.85l-1.172.53c-.262-.75-.792-1.133-1.57-1.133a1.74 1.74 0 0 0-1.283.544q-.518.537-.516 1.39-.002.87.516 1.423c.345.373.778.554 1.298.554q1.15 0 1.58-1.148l1.19.535c-.17.495-.505.937-.971 1.31q-.708.553-1.824.555c-.909 0-1.662-.3-2.27-.913M95.507 14.248c.632.613.939 1.364.939 2.267q0 1.368-.939 2.302c-.617.613-1.376.928-2.28.928a3.19 3.19 0 0 1-2.295-.928c-.632-.614-.938-1.38-.938-2.282s.321-1.669.953-2.282a3.19 3.19 0 0 1 2.295-.928c.88.01 1.633.31 2.265.923m-4.118 2.267c0 .545.17 1.006.516 1.399.345.383.792.579 1.332.579s.987-.186 1.317-.57c.331-.382.506-.843.506-1.388q.001-.816-.515-1.39c-.33-.382-.778-.569-1.318-.569s-.987.187-1.332.57c-.33.378-.506.83-.506 1.37M101.618 19.642v-3.475c0-.928-.413-1.541-1.317-1.541-.827 0-1.342.638-1.342 1.575v3.436h-1.366v-6.18h1.332v.835q.722-.972 1.823-.972c.885 0 1.512.334 1.891 1.02.632-.696 1.225-1.02 2.134-1.02 1.478 0 2.227 1.02 2.227 2.498v3.819h-1.366v-3.485c0-.938-.399-1.526-1.308-1.526-.836 0-1.351.623-1.351 1.56v3.45h-1.357z">
+                                </path>
+                            </svg>
+                        </a>
+                        <button id="back-to-landing"
+                            class="text-sm text-gray-500 hover:text-gray-900 mt-4 inline-flex items-center">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-1"></i> Back to
+                            site
+                        </button>
+                    </header>
+
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <!-- Left Column: Payment Details -->
+                        <div class="lg:pr-8">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                                Secure Checkout
+                            </h2>
+                            <form id="payment-form" class="space-y-6">
+                                <div>
+                                    <label for="card-name"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+                                    <input type="text" id="card-name" placeholder="John M. Doe"
+                                        class="block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#461A53] focus:border-transparent" />
+                                </div>
+                                <div>
+                                    <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Card
+                                        Number</label>
+                                    <input type="text" id="card-number" placeholder="0000 0000 0000 0000"
+                                        class="block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#461A53] focus:border-transparent" />
+                                </div>
+                                <div class="flex space-x-4">
+                                    <div class="flex-1">
+                                        <label for="expiry-date"
+                                            class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                                        <input type="text" id="expiry-date" placeholder="MM / YY"
+                                            class="block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#461A53] focus:border-transparent" />
+                                    </div>
+                                    <div class="flex-1">
+                                        <label for="cvc"
+                                            class="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                                        <input type="text" id="cvc" placeholder="123"
+                                            class="block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#461A53] focus:border-transparent" />
+                                    </div>
+                                </div>
+                                <div class="pt-4">
+                                    <h3 class="text-sm font-medium text-gray-600 mb-2">
+                                        We accept:
+                                    </h3>
+                                    <div class="flex items-center space-x-4">
+                                        <!-- SVGs for card types for better quality -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="38.217" height="24"
+                                            viewBox="0 0 38.217 24">
+                                            <g fill="none">
+                                                <path fill="#0E4595" width="750" height="471" rx="40"
+                                                    d="M2.038 0H36.179A2.038 2.038 0 0 1 38.217 2.038V21.962A2.038 2.038 0 0 1 36.179 24H2.038A2.038 2.038 0 0 1 0 21.962V2.038A2.038 2.038 0 0 1 2.038 0z" />
+                                                <path fill="#FFF"
+                                                    d="m14.176 17.031 1.7 -9.975h2.719l-1.701 9.975zm12.541 -9.76c-0.539 -0.202 -1.383 -0.419 -2.437 -0.419 -2.687 0 -4.579 1.353 -4.595 3.292 -0.015 1.433 1.351 2.233 2.382 2.71 1.058 0.489 1.414 0.801 1.409 1.237 -0.007 0.669 -0.845 0.974 -1.627 0.974 -1.088 0 -1.666 -0.151 -2.559 -0.524l-0.35 -0.159 -0.382 2.233c0.635 0.278 1.809 0.52 3.029 0.532 2.858 0 4.713 -1.337 4.735 -3.408 0.01 -1.135 -0.714 -1.998 -2.283 -2.71 -0.95 -0.461 -1.532 -0.769 -1.526 -1.237 0 -0.415 0.493 -0.858 1.557 -0.858 0.889 -0.014 1.533 0.18 2.035 0.382l0.244 0.115zm6.997 -0.215h-2.101c-0.651 0 -1.138 0.178 -1.424 0.827l-4.038 9.142h2.855s0.467 -1.229 0.572 -1.499c0.312 0 3.086 0.004 3.482 0.004 0.081 0.349 0.331 1.495 0.331 1.495h2.523zm-3.333 6.441c0.225 -0.575 1.083 -2.788 1.083 -2.788 -0.016 0.026 0.223 -0.578 0.361 -0.952l0.184 0.86s0.521 2.381 0.629 2.88h-2.257" />
+                                                <path
+                                                    d="m2.338 7.056 -0.035 0.208c1.075 0.26 2.035 0.637 2.875 1.105l2.413 8.647 2.877 -0.003 4.281 -9.956h-2.88l-2.662 6.802 -0.284 -1.382a4.484 4.484 0 0 0 -0.042 -0.127l-0.926 -4.451c-0.165 -0.632 -0.642 -0.82 -1.232 -0.842z"
+                                                    style="fill: #fff; fill-opacity: 1" />
+                                            </g>
+                                        </svg>
+                                        <svg class="h-8 w-auto" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"
+                                            role="img" aria-labelledby="pi-mastercard">
+                                            <title id="pi-mastercard">Mastercard</title>
+                                            <path opacity=".07"
+                                                d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z">
+                                            </path>
+                                            <path fill="#fff"
+                                                d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32">
+                                            </path>
+                                            <circle fill="#EB001B" cx="15" cy="12" r="7"></circle>
+                                            <circle fill="#F79E1B" cx="23" cy="12" r="7"></circle>
+                                            <path fill="#FF5F00"
+                                                d="M22 12c0-3.9-3.1-7-7-7s-7 3.1-7 7 3.1 7 7 7 7-3.1 7-7z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Right Column: Order Summary -->
+                        <div class="lg:pl-8">
+                            <div class="bg-slate-50 p-8 rounded-xl">
+                                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                                    Order Summary
+                                </h2>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-gray-600" id="checkout-plan-name">
+                                            Starter Plan
+                                        </p>
+                                        <p class="font-semibold text-gray-800" id="checkout-plan-price">
+                                            $19.00
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <p class="text-gray-500">Billed Monthly</p>
+                                    </div>
+                                </div>
+                                <div class="border-t my-6"></div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <p class="text-gray-600">Subtotal</p>
+                                        <p class="font-medium text-gray-800" id="checkout-subtotal-price">
+                                            $19.00
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <p class="text-gray-600">Tax</p>
+                                        <p class="font-medium text-gray-800">--</p>
+                                    </div>
+                                </div>
+                                <div class="border-t my-6"></div>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-lg font-bold text-gray-900">Total</p>
+                                    <p class="text-lg font-bold text-gray-900" id="checkout-total-price">
+                                        $19.00
+                                    </p>
+                                </div>
+                                <button type="submit" id="pay-now-btn"
+                                    class="mt-8 w-full bg-[#E34B31] text-white font-bold py-4 px-6 rounded-full transition duration-300 hover:bg-opacity-90 shadow-lg">
+                                    Complete Purchase
+                                </button>
+                                <p class="text-xs text-gray-500 text-center mt-4">
+                                    By clicking "Complete Purchase", you agree to our
+                                    <a href="#" class="underline">Terms of Service</a>.
+                                </p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-center text-sm text-gray-500">
+                                <i data-feather="lock" class="w-4 h-4 mr-2"></i>
+                                <span>Secure checkout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========== Confirmation Page (Hidden by default) =========== -->
+        <div id="confirmation-page" class="hidden bg-slate-50 min-h-screen flex items-center justify-center">
+            <div class="container mx-auto px-6 py-24">
+                <div class="max-w-md mx-auto bg-white p-10 rounded-xl shadow-lg text-center">
+                    <div class="flex items-center justify-center h-20 w-20 bg-green-100 rounded-full mx-auto mb-6">
+                        <i data-feather="check" class="w-12 h-12 text-green-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-3">
+                        Purchase Successful!
+                    </h2>
+                    <p class="text-gray-600 mb-8">
+                        Thank you for your purchase. Your premium features are now active.
+                        A confirmation email has been sent to you.
+                    </p>
+                    <button id="go-home-btn"
+                        class="w-full bg-[#461A53] text-white font-bold py-3 px-6 rounded-full transition duration-300 hover:bg-opacity-90">
+                        Start Your Job Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS (Animate On Scroll) Library JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Consolidated JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Initialize AOS (Animate on Scroll) ---
+            AOS.init({
+                duration: 600, // Reduced duration for quicker animations
+                easing: "ease-in-out", // default easing for AOS animations
+                once: true, // whether animation should happen only once - while scrolling down
+                mirror: false, // whether elements should animate out while scrolling past them
+            });
+
+            // Initialize Feather Icons
+            feather.replace();
+
+            // --- Cache DOM Elements ---
+            const heroImageContainer = document.getElementById(
+                "hero-image-container"
+            );
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const navbar = document.getElementById("navbar");
+            const navLinks = document.querySelectorAll('#main-nav a[href^="#"]');
+            const mobileNavLinks = document.querySelectorAll(
+                '#mobile-menu a[href^="#"]'
+            );
+            const socBanner = document.getElementById("soc-banner");
+            const countersSection = document.getElementById("counters");
+            const pageContainer = document.getElementById("page-container");
+            const landingPage = document.getElementById("landing-page");
+            const checkoutPage = document.getElementById("checkout-page");
+            const confirmationPage = document.getElementById("confirmation-page");
+            const purchaseButtons = document.querySelectorAll(".purchase-btn");
+            const payNowBtn = document.getElementById("pay-now-btn");
+            const goHomeBtn = document.getElementById("go-home-btn");
+            const backToLandingBtn = document.getElementById("back-to-landing");
+
+            // --- Page Navigation Logic ---
+            const showPage = (pageName, data = {}) => {
+                // Hide all pages
+                landingPage.classList.add("hidden");
+                checkoutPage.classList.add("hidden");
+                confirmationPage.classList.add("hidden");
+
+                // Show the requested page
+                if (pageName === "landing") {
+                    landingPage.classList.remove("hidden");
+                    navbar.classList.remove("hidden");
+                    socBanner.classList.remove("hidden");
+                } else if (pageName === "checkout") {
+                    // Populate checkout page with data
+                    const price = parseFloat(data.price);
+                    const priceText = price > 0 ? `$${price.toFixed(2)}` : "Free";
+                    document.getElementById("checkout-plan-name").innerText = data.plan;
+                    document.getElementById("checkout-plan-price").innerText =
+                        priceText;
+                    document.getElementById("checkout-subtotal-price").innerText =
+                        priceText;
+                    document.getElementById("checkout-total-price").innerText =
+                        priceText;
+
+                    checkoutPage.classList.remove("hidden");
+                    navbar.classList.add("hidden");
+                    socBanner.classList.add("hidden");
+                } else if (pageName === "confirmation") {
+                    confirmationPage.classList.remove("hidden");
+                    navbar.classList.add("hidden");
+                    socBanner.classList.add("hidden");
+                }
+                window.scrollTo(0, 0); // Scroll to top on page change
+                feather.replace(); // Re-initialize icons on page change
+            };
+
+            purchaseButtons.forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const plan = button.dataset.plan;
+                    const price = button.dataset.price;
+                    showPage("checkout", { plan, price });
+                });
+            });
+
+            payNowBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                showPage("confirmation");
+            });
+
+            goHomeBtn.addEventListener("click", () => showPage("landing"));
+            backToLandingBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                showPage("landing");
+            });
+            document
+                .getElementById("checkout-logo")
+                .addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showPage("landing");
+                });
+            document.getElementById("logo").addEventListener("click", (e) => {
+                e.preventDefault();
+                showPage("landing");
+            });
+
+            // --- Set initial navbar position based on banner ---
+            navbar.style.top = `${socBanner.offsetHeight}px`;
+
+            // --- 3D Hero Image Hover Effect ---
+            if (heroImageContainer) {
+                const image = heroImageContainer.querySelector(".hero-image");
+                heroImageContainer.addEventListener("mousemove", (e) => {
+                    const { left, top, width, height } =
+                        heroImageContainer.getBoundingClientRect();
+                    const x = (e.clientX - left) / width - 0.5;
+                    const y = (e.clientY - top) / height - 0.5;
+                    const rotateIntensity = 25;
+                    const rotateX = y * -1 * rotateIntensity;
+                    const rotateY = x * rotateIntensity;
+                    image.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                });
+
+                heroImageContainer.addEventListener("mouseleave", () => {
+                    image.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+                });
+            }
+
+            // --- Mobile Menu Toggle ---
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener("click", () => {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+
+            // --- Smooth Scrolling for Anchor Links ---
+            const allNavLinks = [...navLinks, ...mobileNavLinks];
+            allNavLinks.forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    showPage("landing"); // Make sure landing page is visible
+
+                    // Use a timeout to allow the page to become visible before scrolling
+                    setTimeout(() => {
+                        const targetId = this.getAttribute("href");
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            let headerOffset = navbar.offsetHeight + socBanner.offsetHeight;
+
+                            const elementPosition =
+                                targetElement.getBoundingClientRect().top;
+                            const offsetPosition =
+                                elementPosition + window.pageYOffset - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth",
+                            });
+                        }
+                    }, 100);
+
+                    if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+                        mobileMenu.classList.add("hidden");
+                    }
+                });
+            });
+
+            // --- Navbar Scroll Effect ---
+            const handleScroll = () => {
+                const topOffset = socBanner.offsetHeight;
+
+                if (window.scrollY > 50) {
+                    navbar.classList.add("bg-white", "shadow-md");
+                    navbar.style.top = "0px";
+                } else {
+                    navbar.classList.remove("bg-white", "shadow-md");
+                    navbar.style.top = `${topOffset}px`;
+                }
+            };
+
+            window.addEventListener("scroll", handleScroll);
+            handleScroll();
+
+            // --- Animated Counters ---
+            const animateCounters = () => {
+                const counters = document.querySelectorAll(".counter");
+                const speed = 200;
+
+                counters.forEach((counter) => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute("data-target");
+                        const count = +counter.innerText.replace(/,/g, "");
+
+                        const increment = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(
+                                count + increment
+                            ).toLocaleString();
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    };
+                    updateCount();
+                });
+            };
+
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            animateCounters();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+
+            if (countersSection) {
+                observer.observe(countersSection);
+            }
+        });
+    </script>
+</body>
+
+</html>
